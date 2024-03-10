@@ -127,11 +127,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="MC_Pricer.cpp" />
-    <ClCompile Include="Gaussian.cpp" />
+    <ClCompile Include="Display.cpp" />
+    <ClCompile Include="MonteCarlo_Pricer.cpp" />
+    <ClCompile Include="Gaussian_Generator.cpp" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Testing.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Gaussian.h" />
+    <ClInclude Include="Display.h" />
+    <ClInclude Include="Gaussian_Generator.h" />
+    <ClInclude Include="MCP.h" />
+    <ClInclude Include="Test.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
