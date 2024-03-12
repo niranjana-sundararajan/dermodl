@@ -3,6 +3,7 @@
 
 #include "Gaussian_Generator.h"
 #include "MCP.h"
+#include "Payoff.h"
 using namespace std;
 
 
@@ -34,39 +35,39 @@ int main()
     // Variable to store random number
     double ran_generated_result;
 
-        // Display the menu
-        display_random_number_generator_menu();
+    // Display the menu
+    display_random_number_generator_menu();
 
-        // Get user input
+    // Get user input
         
-        std::cin >> choice;
+    std::cin >> choice;
 
   
-        // Process user choice
-        switch (choice) {
-        case 1:
-            std::cout << "You selected Option 1.\n";
-            ran_generated_result = get_sample_using_random_generator();
-            break;
-        case 2:
-            std::cout << "You selected Option 2.\n";
-            ran_generated_result = get_sample_by_summation();
-            break;
-        case 3:
-            std::cout << "You selected Option 3.\n";
-            ran_generated_result = get_sample_by_box_muller();
-            break;
-        case 4:
-            std::cout << "You selected Option 4.\n";
-            ran_generated_result = get_sample_by_von_neumann_rejection();
-            break;
-        case 5:
-            std::cout << "Exiting the program.\n";
-            break;
-        default:
-            std::cout << "Invalid choice. Please try again.\n";
-            break;
-        }
+    // Process user choice
+    switch (choice) {
+    case 1:
+        std::cout << "You selected Option 1.\n";
+        ran_generated_result = get_sample_using_random_generator();
+        break;
+    case 2:
+        std::cout << "You selected Option 2.\n";
+        ran_generated_result = get_sample_by_summation();
+        break;
+    case 3:
+        std::cout << "You selected Option 3.\n";
+        ran_generated_result = get_sample_by_box_muller();
+        break;
+    case 4:
+        std::cout << "You selected Option 4.\n";
+        ran_generated_result = get_sample_by_von_neumann_rejection();
+        break;
+    case 5:
+        std::cout << "Exiting the program.\n";
+        break;
+    default:
+        std::cout << "Invalid choice. Please try again.\n";
+        break;
+    }
 
    
     double time_to_expiry;
@@ -78,9 +79,9 @@ int main()
     cout << " ---------------------------------------------------------------------------------" << endl;
     cout << " MONTE CARLO PRICER INITIATED  " << endl;
     cout << " ---------------------------------------------------------------------------------" << endl;
-    cout << " Select Type of Option  " << endl;
+    //cout << " Select Type of Option  " << endl;
 
-    display_types_of_options();
+    //display_types_of_options();
     cout << " ---------------------------------------------------------------------------------" << endl;
 
     cout << "\nEnter Time to Expiry\n";
@@ -107,13 +108,44 @@ int main()
     cout << "\nNumber of Paths\n";
     cin >> number_of_paths;
 
-    double result = simple_monte_carlo_pricer(time_to_expiry,
+
+
+    // Initialise Payoffs for both Call and Put
+    PayOff call_pay_off(strike_price, PayOff::call);
+    PayOff put_pay_off(strike_price, PayOff::put);
+
+
+    // calcualte results for both call and put
+    double result_call = monte_carlo_pricer_using_payoffs(call_pay_off,
+        time_to_expiry,
         strike_price,
         spot_price,
         volatility,
         rate,
         number_of_paths, ran_generated_result);
-    cout << "the price is " << result << "\n";
+
+    double result_put = monte_carlo_pricer_using_payoffs(put_pay_off,
+        time_to_expiry,
+        strike_price,
+        spot_price,
+        volatility,
+        rate,
+        number_of_paths, ran_generated_result);
+
+
+    cout << "the prices are " << result_call
+        << " for the call and "
+        << result_put
+        << " for the put\n";
+
+    //double result = procedural_monte_carlo_pricer(time_to_expiry,
+    //    strike_price,
+    //    spot_price,
+    //    volatility,
+    //    rate,
+    //    number_of_paths, ran_generated_result);
+
+    //cout << "the price is " << result << "\n";
     return 0;
 
 
